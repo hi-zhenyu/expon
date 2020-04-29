@@ -1,2 +1,2 @@
 # expon
-Experiment tools for deep learning (PyTorch).
+Experiment tool for deep learning (PyTorch).
