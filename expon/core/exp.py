@@ -22,14 +22,29 @@ class EXP():
         self.exp_name = exp_name
         self.exp_description = exp_description
         self.metrics = []
+        self.info = {}
         self.exp_seed = None
 
         self._start()
         self._set_git_id()
         self._set_dir()
 
-    def set_seed(self, seed):
-        assert type(seed) == int
+    def add_info(self, key, value):
+        self.info[key] = value
+
+    def get_info(self, key):
+        return self.info[key]
+    
+    def set_seed(self, seed=None):
+        '''
+        Set experiment seed (random, numpy and torch). 
+        If seed is None then randomly choose 0~100 as seed.
+        '''
+
+        if seed is None:
+            seed = random.randint(0,100)
+        else:
+            assert type(seed) == int
 
         random.seed(seed)
         np.random.seed(seed)
@@ -41,15 +56,22 @@ class EXP():
         self.exp_seed = seed
 
     def save(self, output_format='md', show_metric=False):
+        '''
+        Save the params, metrics.
+        '''
         assert output_format in ['md', 'markdown', 'html']
 
-        file_path = os.path.join(gconfig.EXPERIMENT_DIR, 'results')
+        file_path = os.path.join(self.experiment_dir, 'results')
         create_dir_from_file(file_path)
 
         self.end_time = get_current_time()
+        # save params
         self.params.save2json()
+
+        # save metrics
         for metric in self.metrics:
-            metric.visualization(show=show_metric)
+            if metric.draw:
+                metric.visualization(show=show_metric)
             metric.save2json()
 
         md_text = self.results2md()
@@ -59,6 +81,8 @@ class EXP():
         else:
             md.save2html(md_text, file_path)
         
+        print('exp infomation saved to', self.experiment_dir)
+
     def results2md(self):
         results = []
         md.add_title(results, self.exp_name, level=3)
@@ -71,18 +95,23 @@ class EXP():
         md.add_text(results, time_text)
         #TODO Time used
 
+        if self.exp_seed is not None:
+            md.add_title(results, 'Seed', level=5)
+            md.add_text(results, str(self.exp_seed))
+
         md.add_title(results, 'Metric', level=5)
         for metric in self.metrics:
             metric_text = metric.value_label+':   final: '+str(round(metric.value, metric.decimal))+', avg: '+str(round(metric.avg, metric.decimal))+', sum: '+str(round(metric.sum, metric.decimal))
             md.add_text(results, metric_text)
 
-        md.add_title(results, 'Metric Visualization', level=5)
         for metric in self.metrics:
-            md.add_image(results, metric.value_label, metric.file_path)
+            if metric.draw:
+                md.add_image(results, metric.value_label, metric.file_path)
 
-        if self.exp_seed is not None:
-            md.add_title(results, 'Seed', level=5)
-            md.add_text(results, str(self.exp_seed))
+        md.add_title(results, 'Info', level=5)
+        for (key, value) in self.info.items():
+            md.add_title(results, key, level=6)
+            md.add_text(results, str(value))
 
         md.add_title(results, 'Params', level=5)
         md.add_code(results, dict2jsonstr(self.params._param_dict))
@@ -113,6 +142,9 @@ class EXP():
 
         if check_dir(gconfig.EXPERIMENT_DIR):
             raise Exception(gconfig.EXPERIMENT_DIR + 'already exits!')
+
+        self.work_dir = gconfig.WORKSPACE_DIR
+        self.experiment_dir = gconfig.EXPERIMENT_DIR
 
     def _set_git_id(self):
         self.git_id = get_git_revision_short_hash()

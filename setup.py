@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="expon", # Replace with your own username
-    version="0.0.1",
+    version="0.0.4",
     author="Zhenyu Huang",
     author_email="zyhuang.gm@gmail.com",
     description="Experiment tool for deep learning (PyTorch).",
@@ -20,9 +20,13 @@ setuptools.setup(
     ],
     install_requires=[
           'markdown',
-          'numpy'
+          'numpy',
           'matplotlib',
     ],
     python_requires='>=3.6',
     include_package_data=True,
 )
+
+# python3 setup.py sdist bdist_wheel
+# python3 -m twine upload --repository testpypi dist/*
+# python3 -m twine upload dist/*

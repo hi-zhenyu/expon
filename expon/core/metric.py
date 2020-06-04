@@ -7,7 +7,7 @@ from ..utils import gconfig
 from ..utils.file import *
 
 class Metric():
-    def __init__(self, value_label, step_label=None, decimal=6):
+    def __init__(self, value_label, step_label=None, decimal=6, draw=False):
         if step_label is None:
             step_label = 'step'
 
@@ -20,6 +20,8 @@ class Metric():
         self.value_label = value_label
         self.step_label = step_label
         self.decimal = decimal
+
+        self.draw = draw
 
     def update(self, value, n=1):
         self.value = value
