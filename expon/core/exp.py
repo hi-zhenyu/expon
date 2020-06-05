@@ -98,20 +98,22 @@ class EXP():
         if self.exp_seed is not None:
             md.add_title(results, 'Seed', level=5)
             md.add_text(results, str(self.exp_seed))
-
-        md.add_title(results, 'Metric', level=5)
-        for metric in self.metrics:
-            metric_text = metric.value_label+':   final: '+str(round(metric.value, metric.decimal))+', avg: '+str(round(metric.avg, metric.decimal))+', sum: '+str(round(metric.sum, metric.decimal))
-            md.add_text(results, metric_text)
+        
+        if self.metrics: 
+            md.add_title(results, 'Metric', level=5)
+            for metric in self.metrics:
+                metric_text = metric.value_label+':   final: '+str(round(metric.value, metric.decimal))+', avg: '+str(round(metric.avg, metric.decimal))+', sum: '+str(round(metric.sum, metric.decimal))
+                md.add_text(results, metric_text)
 
         for metric in self.metrics:
             if metric.draw:
                 md.add_image(results, metric.value_label, metric.file_path)
 
-        md.add_title(results, 'Info', level=5)
-        for (key, value) in self.info.items():
-            md.add_title(results, key, level=6)
-            md.add_text(results, str(value))
+        if self.info:
+            md.add_title(results, 'Info', level=5)
+            for (key, value) in self.info.items():
+                md.add_title(results, key, level=6)
+                md.add_text(results, str(value))
 
         md.add_title(results, 'Params', level=5)
         md.add_code(results, dict2jsonstr(self.params._param_dict))
