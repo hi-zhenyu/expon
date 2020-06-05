@@ -14,7 +14,8 @@ def test():
 
     loss = expon.Metric('loss', 'epoch', draw=True)
     acc = expon.Metric('acc')
-    exp.add_metric(loss, acc)
+    exp.add_metric(loss)
+    exp.add_metric(acc)
 
     exp.set_seed()
 
