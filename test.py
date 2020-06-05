@@ -21,7 +21,7 @@ def test():
 
     for i in range(0, 100):
         loss.update(1-0.01*i)
-        acc.update(0.01*i)
+        #acc.update(0.01*i)
 
     exp.add_info({'final acc': 0.91})
     exp.add_info({'use binary': True})

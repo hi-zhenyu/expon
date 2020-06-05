@@ -41,11 +41,11 @@ class EXP():
     def set_seed(self, seed=None):
         '''
         Set experiment seed (random, numpy and torch). 
-        If seed is None then randomly choose 0~100 as seed.
+        If seed is None then randomly choose 0~1000 as seed.
         '''
 
         if seed is None:
-            seed = random.randint(0,100)
+            seed = random.randint(0,1000)
         else:
             assert type(seed) == int
 
