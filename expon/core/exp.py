@@ -110,8 +110,9 @@ class EXP():
                 md.add_text(results, metric_text)
 
         for metric in self.metrics:
-            if metric.draw:
-                md.add_image(results, metric.value_label, metric.file_path)
+            if metric.history:
+                if metric.draw:
+                    md.add_image(results, metric.value_label, metric.file_path)
 
         if self.info:
             md.add_title(results, 'Info', level=5)

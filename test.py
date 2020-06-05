@@ -4,7 +4,7 @@ import expon
 
 def test():
 
-    exp = expon.EXP()
+    exp = expon.EXP(check_git=False)
     params = expon.Params()
     params.lamb = 1
     params.learning_rate = 0.001
