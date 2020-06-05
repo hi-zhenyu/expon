@@ -13,7 +13,7 @@ def test():
     exp.set_params(params)
 
     loss = expon.Metric('loss', 'epoch', draw=True)
-    acc = expon.Metric('acc')
+    acc = expon.Metric('acc', draw=True)
     exp.add_metric(loss)
     exp.add_metric(acc)
 
