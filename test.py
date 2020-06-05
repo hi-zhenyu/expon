@@ -23,9 +23,10 @@ def test():
         loss.update(1-0.01*i)
         acc.update(0.01*i)
 
-    exp.add_info('final acc', 0.91)
-    exp.add_info('use binary', True)
-    exp.add_info('result', 'right')
+    exp.add_info({'final acc': 0.91})
+    exp.add_info({'use binary': True})
+    exp.add_info({'result': 'right'})
+    exp.add_info({'test1': 0.1, 'test2': False, 'test3': 'testing'})
     exp.save()
 
 if __name__ == '__main__':

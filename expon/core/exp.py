@@ -32,8 +32,8 @@ class EXP():
         self._set_git_id()
         self._set_dir()
 
-    def add_info(self, key, value):
-        self.info[key] = value
+    def add_info(self, info_dict):
+        self.info.extend(info_dict)
 
     def get_info(self, key):
         return self.info[key]
