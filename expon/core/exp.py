@@ -73,9 +73,10 @@ class EXP():
 
         # save metrics
         for metric in self.metrics:
-            if metric.draw:
-                metric.visualization(show=show_metric)
-            metric.save2json()
+            if metric:
+                if metric.draw:
+                    metric.visualization(show=show_metric)
+                metric.save2json()
 
         md_text = self.results2md()
 
