@@ -126,8 +126,9 @@ class EXP():
     def set_params(self, params):
         self.params = params
 
-    def add_metric(self, metric):
-        self.metrics.append(metric)
+    def add_metric(self, **args):
+        for metric in args:
+            self.metrics.append(metric)
 
     def _start(self):
         self.start_time = get_current_time()

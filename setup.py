@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="expon", # Replace with your own username
-    version="0.0.4",
+    version="0.0.5",
     author="Zhenyu Huang",
     author_email="zyhuang.gm@gmail.com",
     description="Experiment tool for deep learning (PyTorch).",
