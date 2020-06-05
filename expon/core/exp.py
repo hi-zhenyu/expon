@@ -73,7 +73,7 @@ class EXP():
 
         # save metrics
         for metric in self.metrics:
-            if metric:
+            if metric.history:
                 if metric.draw:
                     metric.visualization(show=show_metric)
                 metric.save2json()
