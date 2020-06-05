@@ -12,7 +12,10 @@ from ..utils import gconfig
 from ..utils import md
 
 class EXP():
-    def __init__(self, workspace=None, exp_name=None, exp_description=None):
+    def __init__(self, workspace=None, exp_name=None, exp_description=None, check_git=True):
+        if check_git:
+           check_working_tree()
+
         if workspace is None:
             workspace = 'run'
         if exp_description is None:
