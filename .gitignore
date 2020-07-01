@@ -1,6 +1,7 @@
 .vscode
 EXP/
-
+test.py
+test copy.py
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
